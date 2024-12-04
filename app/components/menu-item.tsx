@@ -69,6 +69,7 @@ const MenuItem = ({
       <Text
         style={{
           color,
+          fontWeight: "500",
         }}
       >
         {title}

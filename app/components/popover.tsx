@@ -1,5 +1,4 @@
 import Animated, {
-  interpolateColor,
   runOnJS,
   useAnimatedStyle,
   useSharedValue,
@@ -7,6 +6,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { StyleSheet, View, TouchableWithoutFeedback } from "react-native";
 import React, { useEffect, useState } from "react";
+import { BlurView } from "expo-blur";
 
 import MenuItem from "./menu-item";
 
@@ -41,16 +41,6 @@ const Popover = ({ selectedItem, onCancel }: Props) => {
     };
   }, []);
 
-  const rContainerStyle = useAnimatedStyle(() => {
-    return {
-      backgroundColor: interpolateColor(
-        scale.value,
-        [1, 1.1],
-        ["transparent", "rgba(0, 0, 0, 0.5)"]
-      ),
-    };
-  }, []);
-
   useEffect(() => {
     scale.value = withSpring(1.1);
   }, []);
@@ -64,7 +54,7 @@ const Popover = ({ selectedItem, onCancel }: Props) => {
 
   return (
     <TouchableWithoutFeedback onPress={handleCancel}>
-      <Animated.View style={[styles.container, rContainerStyle]}>
+      <BlurView style={styles.container} intensity={50} tint="dark">
         <View>
           <View
             style={[
@@ -186,7 +176,7 @@ const Popover = ({ selectedItem, onCancel }: Props) => {
             </View>
           </View>
         </View>
-      </Animated.View>
+      </BlurView>
     </TouchableWithoutFeedback>
   );
 };
